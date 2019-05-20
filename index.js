@@ -16,9 +16,9 @@ app.use('/users', userRoute)
 app.use(express.static('public'))
 
 var tracks = require('./tracks.json')
-app.get('/tracks', function (req, response) {
-  response.setHeader('Content-Type', 'application/json');
-  response.send(JSON.stringify(tracks))
+app.get('/tracks', function (req, res) {
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify(tracks))
 });
 
 
