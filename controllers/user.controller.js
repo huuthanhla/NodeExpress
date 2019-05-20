@@ -1,5 +1,6 @@
 var db = require('../db')
 var shortid = require('shortid')
+// var md5 = require('md5')
 
 module.exports.index = function (req, res) {
     res.render('users/index', {
@@ -32,7 +33,9 @@ module.exports.getUser = function (req, res) {
 
 module.exports.postCreate = function (req, res) {
     req.body.id = shortid.generate()
-    console.log(res.locals)
+    // var hashPass = md5(req.body.password)
+    // req.body.password = hashPass
+    
     db.get('users').push(req.body).write();
     res.redirect('/users')
 }
