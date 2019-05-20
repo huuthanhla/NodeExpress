@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 var express = require('express')
 var bodyParser = require('body-parser')
 var cookieParser = require('cookie-parser')
@@ -7,6 +9,7 @@ var app = express()
 
 var userRoute = require('./routes/user.route')
 var authRoute = require('./routes/auth.route')
+var productRoute = require('./routes/product.route')
 
 var authMiddleware = require('./middleware/auth.middleware')
 
@@ -15,10 +18,11 @@ app.set('views', './views')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
-app.use(cookieParser('kjgUYGyVifuy'))
+app.use(cookieParser(process.env.SESSION_SECRET))
 
 app.use('/users', authMiddleware.requiredAuth, userRoute)
 app.use('/auth', authRoute)
+app.use('/products', productRoute)
 
 app.use(express.static('public'))
 
@@ -36,7 +40,4 @@ app.get('/', function(req, res) {
 })
 
 // Starting server
-app.listen(
-  port, 
-  () => console.log(`Server listening on port ${port}.`)
-)
+app.listen(port, () => console.log(`Server listening on port ${port}.`))
