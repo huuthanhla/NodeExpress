@@ -20,7 +20,9 @@
     {
       "name": "Thanh La",
       "phone": "1234567890",
-      "id": "r2ZL1CotU"
+      "id": "r2ZL1CotU",
+      "email": "thanhladev@gmail.com",
+      "password": "e10adc3949ba59abbe56e057f20f883e"
     },
     {
       "name": "Dieutoia9",
@@ -640,6 +642,17 @@
       "name": "Chocolate Bar - Smarties",
       "image": "https://loremflickr.com/320/240",
       "description": "mi sit amet lobortis sapien sapien non mi integer ac neque duis bibendum morbi non quam nec dui luctus rutrum"
+    }
+  ],
+  "sessions": [
+    {
+      "id": "QODKw-6Mt"
+    },
+    {
+      "id": "ECKuj1CPf",
+      "cart": {
+        "786bedd8-2edc-4a78-86ea-6b5becdb1c3d": 3
+      }
     }
   ]
 }

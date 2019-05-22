@@ -3,7 +3,7 @@ var shortid = require('shortid')
 // var md5 = require('md5')
 
 module.exports.index = function (req, res) {
-    res.render('users/index', {
+        res.render('users/index', {
         users: db.get('users').value()
     })
 }
