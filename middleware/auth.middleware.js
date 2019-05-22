@@ -16,17 +16,5 @@ module.exports.requiredAuth = function(req, res, next) {
   }
 
   res.locals.user = user
-
-  var sessionId = req.signedCookies.sessionId
-  var currentSession = db.get('sessions').find({ id: sessionId }).value()
-  var cart = currentSession.cart
-
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  var cartCount = Object.values(cart).reduce(reducer)
-
-  if (cart) {
-    res.locals.cart = cartCount
-  }
-  
   next()
 }
