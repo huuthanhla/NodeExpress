@@ -2,9 +2,12 @@ var db = require('../db')
 var shortid = require('shortid')
 // var md5 = require('md5')
 
-module.exports.index = function (req, res) {
-        res.render('users/index', {
-        users: db.get('users').value()
+var Users = require('../models/user.model')
+
+module.exports.index = async function (req, res) {
+    var users = await Users.find()
+    res.render('users/index', {
+        users: users
     })
 }
 
@@ -12,29 +15,29 @@ module.exports.create = function (req, res) {
     res.render('users/create')
 }
 
-module.exports.search = function (req, res) {
+module.exports.search = async function (req, res) {
     var q = req.query.q
-    var matchedUsers = db.get('users').value().filter(function (user) {
-        return user.name.toLowerCase().indexOf(q.toLowerCase()) !== -1;
-    })
+    var matchedUsers = await Users.find({ name: q})
+
     res.render('users/index', {
         users: matchedUsers,
         query: q
     })
 }
 
-module.exports.getUser = function (req, res) {
+module.exports.getUser = async function (req, res) {
     var id = (req.params.id)
-    var user = db.get('users').find({ id: id }).value()
+    var user = await Users.findById({ _id: id })
+
     res.render('users/view', {
         user: user
     })
 }
 
 module.exports.postCreate = function (req, res) {
-    req.body.id = shortid.generate()
-    req.body.avatar = req.file.path.split('/').slice(1).join('/')
     
-    db.get('users').push(req.body).write();
+    req.body.avatar = req.file.path.split('/').slice(1).join('/')
+    Users.insertMany(req.body, function (error, docs) { })
+    // db.get('users').push(req.body).write();
     res.redirect('/users')
 }
